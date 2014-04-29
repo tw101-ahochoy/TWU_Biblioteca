@@ -11,22 +11,15 @@ public class BibliotecaController {
 
 
     private PrintStream printStream;
+    private Library library;
 
-    public BibliotecaController(PrintStream printStream) {
-
+    public BibliotecaController(PrintStream printStream, Library library) {
         this.printStream = printStream;
+        this.library = library;
     }
 
     public void start() {
         printStream.println("Welcome!");
-        Library library = new Library(initialBooks());
-        System.out.println(library.books());
-    }
-
-    private static List<String> initialBooks() {
-        List<String> initialBooks = new ArrayList<String>();
-        initialBooks.add("The Bible");
-        initialBooks.add("Slaughterhouse Five");
-        return initialBooks;
+        printStream.println(library.books());
     }
 }

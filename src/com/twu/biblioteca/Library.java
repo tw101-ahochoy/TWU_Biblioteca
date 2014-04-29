@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +19,13 @@ public class Library {
         if (books.size() == 0){
             return "";
         }
-        return books.get(0);
+
+        List<String> otherBooks = new ArrayList<String>(books);
+        String bookNames = otherBooks.remove(0);
+
+        for (String book : otherBooks) {
+            bookNames += "\n" + book;
+        }
+        return bookNames;
     }
 }

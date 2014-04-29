@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +13,17 @@ public class BibliotecaController {
 
     private PrintStream printStream;
     private Library library;
+    private Menu menu;
 
-    public BibliotecaController(PrintStream printStream, Library library) {
+    public BibliotecaController(PrintStream printStream, Library library, Menu menu) {
         this.printStream = printStream;
         this.library = library;
+        this.menu = menu;
     }
 
-    public void start() {
+    public void start() throws IOException {
         printStream.println("Welcome!");
-        printStream.println(library.books());
+        menu.printOptions();
+        menu.doSomething();
     }
 }

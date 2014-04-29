@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,23 +10,17 @@ import java.util.List;
 public class Library {
 
     private List<String> books;
+    private PrintStream printStream;
+    private StringJoiner joiner;
 
-    public Library(List<String> initialBooks) {
-
+    public Library(List<String> initialBooks, PrintStream printStream, StringJoiner joiner) {
         this.books = initialBooks;
+        this.printStream = printStream;
+        this.joiner = joiner;
     }
 
-    public String books() {
-        if (books.size() == 0){
-            return "";
-        }
-
-        List<String> otherBooks = new ArrayList<String>(books);
-        String bookNames = otherBooks.remove(0);
-
-        for (String book : otherBooks) {
-            bookNames += "\n" + book;
-        }
-        return bookNames;
+    public void listBooks() {
+        String joinedBooks = joiner.join(books);
+        printStream.println(joinedBooks);
     }
 }

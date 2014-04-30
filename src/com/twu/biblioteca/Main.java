@@ -15,7 +15,9 @@ public class Main {
 
         Library library = new Library(initialBooks(), out, new StringJoiner());
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        Menu menu = new Menu(out, library, reader);
+
+        OptionPrinter optionPrinter = new OptionPrinter(out);
+        Menu menu = new Menu(out, library, reader, optionPrinter);
         BibliotecaController controller = new BibliotecaController(out, library, menu);
         controller.start();
     }

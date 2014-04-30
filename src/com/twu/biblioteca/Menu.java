@@ -12,17 +12,24 @@ public class Menu {
     private Library library;
     private BufferedReader reader;
     private boolean done = false;
+    private OptionPrinter optionPrinter;
 
-    public Menu(PrintStream printStream, Library library, BufferedReader reader) {
+    public Menu(PrintStream printStream, Library library, BufferedReader reader, OptionPrinter optionPrinter) {
         this.printStream = printStream;
         this.library = library;
         this.reader = reader;
+        this.optionPrinter = optionPrinter;
     }
 
     public void run() throws IOException {
-        printOptions();
-        String input = getInput();
-        runOption(input);
+        optionPrinter.print();
+
+        String input = reader.readLine();
+        if (input.equals("1")){
+            library.listBooks();
+        } else {
+            printStream.println("Select a valid option!");
+        }
     }
 
     public void printOptions() {

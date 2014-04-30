@@ -13,6 +13,7 @@ public class Menu {
     private BufferedReader reader;
     private boolean done = false;
     private OptionPrinter optionPrinter;
+    Map<String, Command> commands = new HashMap<String, Command>();
 
     public Menu(PrintStream printStream, Library library, BufferedReader reader, OptionPrinter optionPrinter) {
         this.printStream = printStream;

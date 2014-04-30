@@ -47,17 +47,13 @@ public class MenuTest {
     public void shouldRePromptWhenGivenInvalidOption() throws IOException {
         when(reader.readLine()).thenReturn("argleflarble");
         menu.doSomething();
-        verify(reader).readLine();
         verify(printStream).println("Select a valid option!");
-        verify(library, never()).listBooks();
     }
 
     @Test
     public void shouldNotListBooksUnlessGiven1() throws IOException {
         when(reader.readLine()).thenReturn("-1");
         menu.doSomething();
-        verify(reader).readLine();
-        verify(printStream).println("Select a valid option!");
         verify(library, never()).listBooks();
     }
 
@@ -93,5 +89,12 @@ public class MenuTest {
         when(reader.readLine()).thenReturn("2").thenReturn("aaa");
         menu.doSomething();
         verify(library).checkout("aaa");
+    }
+
+    @Test
+    public void shouldInformOfSuccessfulCheckout() throws IOException {
+        when(reader.readLine()).thenReturn("2").thenReturn("aaa");
+        menu.doSomething();
+        verify(printStream).println("Thank you! Enjoy the book");
     }
 }

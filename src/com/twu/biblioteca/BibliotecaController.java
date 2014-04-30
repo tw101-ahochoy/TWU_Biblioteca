@@ -25,7 +25,7 @@ public class BibliotecaController {
         printStream.println("Welcome!");
         do {
             menu.printOptions();
-
-        } while(menu.doSomething() != 0);
+            menu.doSomething();
+        } while(!menu.isDone());
     }
 }

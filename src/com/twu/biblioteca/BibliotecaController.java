@@ -23,7 +23,9 @@ public class BibliotecaController {
 
     public void start() throws IOException {
         printStream.println("Welcome!");
-        menu.printOptions();
-        menu.doSomething();
+        do {
+            menu.printOptions();
+
+        } while(menu.doSomething() != 0);
     }
 }

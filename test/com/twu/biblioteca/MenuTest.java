@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -56,5 +58,16 @@ public class MenuTest {
         verify(printStream).println("Select a valid option!");
         verify(library, never()).listBooks();
     }
-
+    @Test
+    public void shouldReturn0WhenQuitReceived() throws IOException {
+        when(reader.readLine()).thenReturn("Quit");
+        int returnValue = menu.doSomething();
+        assertThat(returnValue, is(0));
+    }
+    @Test
+    public void shouldNotReturn0UnlessQuitReceived() throws IOException {
+        when(reader.readLine()).thenReturn("1");
+        int returnValue = menu.doSomething();
+        assertThat(returnValue, not(is(0)));
+    }
 }

@@ -6,8 +6,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class BibliotecaControllerTest {
 
@@ -42,4 +41,17 @@ public class BibliotecaControllerTest {
         verify(menu).doSomething();
     }
 
+    @Test
+    public void shouldStopWhenDoSomethingReturns0() throws IOException {
+        when(menu.doSomething()).thenReturn(0);
+        controller.start();
+        verify(menu,times(1)).doSomething();
+    }
+
+    @Test
+    public void shouldPromptAgainIf0NotReceived() throws IOException {
+        when(menu.doSomething()).thenReturn(1).thenReturn(0);
+        controller.start();
+        verify(menu, times(2)).doSomething();
+    }
 }

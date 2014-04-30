@@ -22,12 +22,16 @@ public class Menu {
         printStream.println("1) List Books");
     }
 
-    public void doSomething() throws IOException {
+    public int doSomething() throws IOException {
         String input = reader.readLine();
+        if (input.equals("Quit")) {
+            return 0;
+        }
         if (input.equals("1")) {
             library.listBooks();
         } else {
             printStream.println("Select a valid option!");
         }
+        return 1;
     }
 }

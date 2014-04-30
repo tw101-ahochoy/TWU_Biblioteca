@@ -2,11 +2,13 @@ package com.twu.biblioteca;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Matchers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.*;
@@ -51,23 +53,45 @@ public class MenuTest {
     }
 
     @Test
-    public void shouldNotListBooksUnlessGivenOne() throws IOException {
-        when(reader.readLine()).thenReturn("2");
+    public void shouldNotListBooksUnlessGiven1() throws IOException {
+        when(reader.readLine()).thenReturn("-1");
         menu.doSomething();
         verify(reader).readLine();
         verify(printStream).println("Select a valid option!");
         verify(library, never()).listBooks();
     }
+
     @Test
     public void shouldReturn0WhenQuitReceived() throws IOException {
         when(reader.readLine()).thenReturn("Quit");
         int returnValue = menu.doSomething();
         assertThat(returnValue, is(0));
     }
+
     @Test
     public void shouldNotReturn0UnlessQuitReceived() throws IOException {
         when(reader.readLine()).thenReturn("1");
         int returnValue = menu.doSomething();
         assertThat(returnValue, not(is(0)));
+    }
+
+    @Test
+    public void shouldProvideCheckoutOption() {
+        menu.printOptions();
+        verify(printStream).println("2) Check out book");
+    }
+
+    @Test
+    public void shouldAskWhichBookWhenCheckingOut() throws IOException {
+        when(reader.readLine()).thenReturn("2");
+        menu.doSomething();
+        verify(printStream).println("Which book would you like to check out?");
+    }
+
+    @Test
+    public void shouldCheckOutSelectedBook() throws IOException {
+        when(reader.readLine()).thenReturn("2").thenReturn("aaa");
+        menu.doSomething();
+        verify(library).checkout("aaa");
     }
 }

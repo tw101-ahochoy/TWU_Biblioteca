@@ -19,7 +19,9 @@ public class Menu {
     }
 
     public void printOptions() {
+
         printStream.println("1) List Books");
+        printStream.println("2) Check out book");
     }
 
     public int doSomething() throws IOException {
@@ -29,7 +31,12 @@ public class Menu {
         }
         if (input.equals("1")) {
             library.listBooks();
-        } else {
+        } else if (input.equals("2")) {
+            printStream.println("Which book would you like to check out?");
+            String book = reader.readLine();
+            library.checkout(book);
+        }
+        else {
             printStream.println("Select a valid option!");
         }
         return 1;

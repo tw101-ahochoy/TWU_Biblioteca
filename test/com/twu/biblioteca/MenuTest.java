@@ -35,36 +35,30 @@ public class MenuTest {
 
     @Test
     public void shouldListBooksWhenSelectedOptionOne() throws IOException {
-        //when(reader.readLine()).thenReturn("1");
         menu.runOption("1");
-        //verify(reader).readLine();
         verify(library).listBooks();
     }
 
     @Test
     public void shouldRePromptWhenGivenInvalidOption() throws IOException {
-        //when(reader.readLine()).thenReturn("argleflarble");
         menu.runOption("aasdfasf");
         verify(printStream).println("Select a valid option!");
     }
 
     @Test
     public void shouldNotListBooksUnlessGiven1() throws IOException {
-        //when(reader.readLine()).thenReturn("-1");
         menu.runOption("-1");
         verify(library, never()).listBooks();
     }
 
     @Test
     public void shouldBeTrueWhenQuitReceived() throws IOException {
-        //when(reader.readLine()).thenReturn("Quit");
         menu.runOption("Quit");
         assertThat(menu.isDone(), is(true));
     }
 
     @Test
     public void shouldBeFalseUnlessQuitReceived() throws IOException {
-        //when(reader.readLine()).thenReturn("1");
         menu.runOption("1");
         assertThat(menu.isDone(), is(false));
     }
@@ -77,7 +71,6 @@ public class MenuTest {
 
     @Test
     public void shouldAskWhichBookWhenCheckingOut() throws IOException {
-        //when(reader.readLine()).thenReturn("2");
         menu.runOption("2");
         verify(printStream).println("Which book would you like to check out?");
     }

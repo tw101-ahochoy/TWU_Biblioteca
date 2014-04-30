@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class MenuTest {
 
@@ -39,6 +37,24 @@ public class MenuTest {
         menu.doSomething();
         verify(reader).readLine();
         verify(library).listBooks();
+    }
+
+    @Test
+    public void shouldRePromptWhenGivenInvalidOption() throws IOException {
+        when(reader.readLine()).thenReturn("argleflarble");
+        menu.doSomething();
+        verify(reader).readLine();
+        verify(printStream).println("Select a valid option!");
+        verify(library, never()).listBooks();
+    }
+
+    @Test
+    public void shouldNotListBooksUnlessGivenOne() throws IOException {
+        when(reader.readLine()).thenReturn("2");
+        menu.doSomething();
+        verify(reader).readLine();
+        verify(printStream).println("Select a valid option!");
+        verify(library, never()).listBooks();
     }
 
 }

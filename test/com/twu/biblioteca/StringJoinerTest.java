@@ -25,12 +25,12 @@ public class StringJoinerTest {
     }
 
     @Test
-    public void shouldListNothingWhenThereAreNoBooks(){
+    public void shouldListNothingWhenThereAreNoStrings(){
         assertThat(joiner.join(strings), is(""));
     }
 
     @Test
-    public void shouldListABook() {
+    public void shouldListAString() {
         String string = "aaa";
         strings.add(string);
         assertThat(joiner.join(strings), is(string));

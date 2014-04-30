@@ -23,7 +23,11 @@ public class Menu {
     }
 
     public void doSomething() throws IOException {
-        reader.readLine();
-        library.listBooks();
+        String input = reader.readLine();
+        if (input.equals("1")) {
+            library.listBooks();
+        } else {
+            printStream.println("Select a valid option!");
+        }
     }
 }

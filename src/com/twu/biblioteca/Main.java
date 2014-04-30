@@ -23,6 +23,7 @@ public class Main {
         List<String> initialBooks = new ArrayList<String>();
         initialBooks.add("The Bible");
         initialBooks.add("Slaughterhouse Five");
+
         return initialBooks;
     }
 

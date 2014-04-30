@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -9,11 +10,11 @@ import java.util.List;
  */
 public class Library {
 
-    private List<String> books;
+    private Collection<String> books;
     private PrintStream printStream;
     private StringJoiner joiner;
 
-    public Library(List<String> initialBooks, PrintStream printStream, StringJoiner joiner) {
+    public Library(Collection<String> initialBooks, PrintStream printStream, StringJoiner joiner) {
         this.books = initialBooks;
         this.printStream = printStream;
         this.joiner = joiner;
@@ -22,5 +23,9 @@ public class Library {
     public void listBooks() {
         String joinedBooks = joiner.join(books);
         printStream.println(joinedBooks);
+    }
+
+    public void checkout(String book) {
+        books.remove(book);
     }
 }

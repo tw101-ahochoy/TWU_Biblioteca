@@ -1,13 +1,14 @@
 package com.twu.biblioteca;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * Created by manderso on 4/29/14.
  */
 public class StringJoiner {
-    public String join(List<String> strings) {
+    public String join(Collection<String> strings) {
         if (strings.size() == 0){
             return "";
         }

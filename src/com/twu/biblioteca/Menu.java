@@ -11,6 +11,7 @@ public class Menu {
     private PrintStream printStream;
     private Library library;
     private BufferedReader reader;
+    private boolean done = false;
 
     public Menu(PrintStream printStream, Library library, BufferedReader reader) {
         this.printStream = printStream;
@@ -24,10 +25,11 @@ public class Menu {
         printStream.println("2) Check out book");
     }
 
-    public int doSomething() throws IOException {
-        String input = reader.readLine();
+    public void runOption(String input) throws IOException {
+
         if (input.equals("Quit")) {
-            return 0;
+            done = true;
+            return;
         }
         if (input.equals("1")) {
             library.listBooks();
@@ -39,6 +41,14 @@ public class Menu {
         else {
             printStream.println("Select a valid option!");
         }
-        return 1;
+    }
+
+    public String getInput() throws IOException {
+        String input = reader.readLine();
+        return input;
+    }
+
+    public boolean isDone() {
+        return done;
     }
 }

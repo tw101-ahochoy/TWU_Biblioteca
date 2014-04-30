@@ -42,8 +42,12 @@ public class Menu {
         } else if (input.equals("2")) {
             printStream.println("Which book would you like to check out?");
             String book = reader.readLine();
-            library.checkout(book);
-            printStream.println("Thank you! Enjoy the book");
+            if (library.checkout(book)) {
+                printStream.println("Thank you! Enjoy the book");
+            } else {
+                printStream.println("That book is not available.");
+            }
+
         }
         else {
             printStream.println("Select a valid option!");

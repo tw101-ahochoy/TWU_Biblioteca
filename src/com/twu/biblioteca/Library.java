@@ -25,7 +25,12 @@ public class Library {
         printStream.println(joinedBooks);
     }
 
-    public void checkout(String book) {
-        books.remove(book);
+    public boolean checkout(String book) {
+        if (books.contains(book)) {
+            books.remove(book);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

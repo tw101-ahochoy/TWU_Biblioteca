@@ -55,4 +55,10 @@ public class LibraryTest {
         library.checkout(book1);
         assertThat(books, not(hasItem(book1)));
     }
+
+    @Test
+    public void shouldReturnBook(){
+        library.returnBook("Book 3");
+        assertTrue(books.contains("Book 3"));
+    }
 }

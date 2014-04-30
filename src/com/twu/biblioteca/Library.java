@@ -33,4 +33,8 @@ public class Library {
             return false;
         }
     }
+
+    public void returnBook(String book) {
+        books.add(book);
+    }
 }

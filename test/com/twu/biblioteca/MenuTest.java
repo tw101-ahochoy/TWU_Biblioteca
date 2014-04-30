@@ -104,6 +104,27 @@ public class MenuTest {
         when(library.checkout("WrongBook")).thenReturn(false);
         menu.runOption("2");
         verify(printStream).println("That book is not available.");
+    }
 
+    @Test
+    public void shouldHaveReturnBookOption() {
+        menu.printOptions();
+        verify(printStream).println("3) Return a book");
+    }
+
+
+
+    @Test
+    public void shouldAskForBookToReturn() throws IOException {
+        menu.runOption("3");
+        verify(reader).readLine();
+
+    }
+
+    @Test
+    public void shouldTryToReturnBookToLibrary() throws IOException {
+        when(reader.readLine()).thenReturn("A Book");
+        menu.runOption("3");
+        verify(library).returnBook("A Book");
     }
 }

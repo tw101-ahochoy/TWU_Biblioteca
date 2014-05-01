@@ -32,7 +32,7 @@ public class BibliotecaControllerTest {
 
     @Test
     public void shouldLetUserChooseOptions() throws IOException {
-        when(menu.isDone()).thenReturn(false).thenReturn(true);
+        when(menu.isDone()).thenReturn(true);
         controller.start();
         verify(menu).run();
     }
@@ -46,7 +46,7 @@ public class BibliotecaControllerTest {
         controller.start();
 
         //Assert
-        verify(menu).run();
+        verify(menu, times(2)).run();
     }
 
 }

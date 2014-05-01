@@ -50,6 +50,13 @@ public class MenuTest {
         verify(printStream).println("Select a valid option!");
     }
 
+    @Test
+    public void shouldBeDoneWhenUserQuits() throws IOException {
+        when(reader.readLine()).thenReturn("4");
+        menu.run();
+        assertTrue(menu.isDone());
+    }
+
     
     
     @Test

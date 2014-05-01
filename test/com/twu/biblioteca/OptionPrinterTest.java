@@ -17,6 +17,7 @@ public class OptionPrinterTest {
         verify(printStream).println("1) List books");
         verify(printStream).println("2) Check out book");
         verify(printStream).println("3) Return book");
+        verify(printStream).println("4) Quit");
     }
 
 }

@@ -27,7 +27,9 @@ public class Menu {
         optionPrinter.print();
 
         String input = reader.readLine();
-        if (input.equals("1")){
+        if (input.equals("4")){
+            done = true;
+        } else if (input.equals("1")){
             library.listBooks();
         } else {
             printStream.println("Select a valid option!");

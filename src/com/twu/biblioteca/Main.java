@@ -1,7 +1,6 @@
 package com.twu.biblioteca;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         PrintStream out = System.out;
 
@@ -18,7 +17,7 @@ public class Main {
 
         OptionPrinter optionPrinter = new OptionPrinter(out);
         Menu menu = new Menu(out, library, reader, optionPrinter);
-        BibliotecaController controller = new BibliotecaController(out, library, menu);
+        BibliotecaController controller = new BibliotecaController(out, menu);
         controller.start();
     }
     private static List<String> initialBooks() {

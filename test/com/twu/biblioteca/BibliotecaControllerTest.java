@@ -37,13 +37,8 @@ public class BibliotecaControllerTest {
 
     @Test
     public void shouldQuitWhenOptionSelected() throws IOException {
-        //Arrange
         when(menu.isDone()).thenReturn(false).thenReturn(true);
-
-        //Action
         controller.start();
-
-        //Assert
         verify(menu, times(2)).run();
     }
 

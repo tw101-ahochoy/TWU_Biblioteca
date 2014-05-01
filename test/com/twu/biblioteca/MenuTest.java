@@ -55,4 +55,18 @@ public class MenuTest {
         assertTrue(menu.isDone());
     }
 
+    @Test
+    public void shouldAttemptToCheckoutBookWhenUserRequests() throws IOException {
+        when(reader.readLine()).thenReturn("2").thenReturn("A Book");
+        menu.run();
+        verify(library).checkout("A Book");
+    }
+
+    @Test
+    public void shouldPromptUserToEnterABookNameWhenCheckingOut() throws IOException {
+        when(reader.readLine()).thenReturn("2");
+        menu.run();
+        verify(printStream).println("Which book would you like to check out?");
+    }
+
 }

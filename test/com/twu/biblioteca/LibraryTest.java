@@ -4,14 +4,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -41,17 +38,15 @@ public class LibraryTest {
     @Test
     public void shouldPrintJoinedBooks() {
         String joinedBooks = "aaa";
-        when(joiner.join(any(Collection.class))).thenReturn(joinedBooks);
+        when(joiner.join(books)).thenReturn(joinedBooks);
         library.listBooks();
         verify(printStream).println(joinedBooks);
     }
 
     @Test
     public void shouldNotPrintCheckedOutBook() {
-        String book1 = new String("aaa");
-        String book2 = new String("bbb");
+        String book1 = "aaa";
         books.add(book1);
-        books.add(book2);
         library.checkout(book1);
         assertThat(books, not(hasItem(book1)));
     }

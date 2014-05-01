@@ -3,6 +3,8 @@ package com.twu.biblioteca;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by manderso on 4/29/14.
@@ -13,7 +15,6 @@ public class Menu {
     private BufferedReader reader;
     private boolean done = false;
     private OptionPrinter optionPrinter;
-    Map<String, Command> commands = new HashMap<String, Command>();
 
     public Menu(PrintStream printStream, Library library, BufferedReader reader, OptionPrinter optionPrinter) {
         this.printStream = printStream;

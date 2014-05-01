@@ -22,4 +22,31 @@ public class BibliotecaControllerTest {
         menu = mock(Menu.class);
         controller = new BibliotecaController(out, library, menu);
     }
+
+    @Test
+    public void shouldPrintWelcomeMessageOnStart() throws IOException {
+        when(menu.isDone()).thenReturn(true);
+        controller.start();
+        verify(out).println("Welcome!");
+    }
+
+    @Test
+    public void shouldLetUserChooseOptions() throws IOException {
+        when(menu.isDone()).thenReturn(false).thenReturn(true);
+        controller.start();
+        verify(menu).run();
+    }
+
+    @Test
+    public void shouldQuitWhenOptionSelected() throws IOException {
+        //Arrange
+        when(menu.isDone()).thenReturn(false).thenReturn(true);
+
+        //Action
+        controller.start();
+
+        //Assert
+        verify(menu).run();
+    }
+
 }

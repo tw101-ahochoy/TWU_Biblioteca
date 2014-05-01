@@ -49,7 +49,7 @@ public class MenuTest {
         menu.run();
         verify(printStream).println("Select a valid option!");
     }
-    
+
     
     
     @Test

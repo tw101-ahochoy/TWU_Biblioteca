@@ -26,6 +26,7 @@ public class Library {
             printStream.println("Thank you! Enjoy the book.");
             return true;
         } else {
+            printStream.println("That book is not available.");
             return false;
         }
     }

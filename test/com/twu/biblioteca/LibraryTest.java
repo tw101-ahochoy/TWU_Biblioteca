@@ -64,4 +64,10 @@ public class LibraryTest {
         library.checkout("A Good Book");
         verify(printStream).println("Thank you! Enjoy the book.");
     }
+
+    @Test
+    public void shouldPrintUnsuccessfulCheckoutMessage() {
+        library.checkout("I'm not in the library");
+        verify(printStream).println("That book is not available.");
+    }
 }

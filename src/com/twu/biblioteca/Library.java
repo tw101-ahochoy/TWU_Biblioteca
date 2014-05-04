@@ -34,7 +34,7 @@ public class Library {
     }
 
     public void returnBook(String book) {
-        if (checkedOutBooks.contains(book)){
+        if (isCheckedOut(book)){
             checkedOutBooks.remove(book);
             books.add(book);
             printStream.println("Thank you for returning the book.");

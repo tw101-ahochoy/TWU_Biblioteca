@@ -2,8 +2,6 @@ package com.twu.biblioteca;
 
 import java.io.PrintStream;
 
-import static org.mockito.Mockito.verify;
-
 public class OptionPrinter {
     private PrintStream printStream;
 
@@ -17,6 +15,5 @@ public class OptionPrinter {
         printStream.println("2) Check out book");
         printStream.println("3) Return book");
         printStream.println("4) Quit");
-
     }
 }

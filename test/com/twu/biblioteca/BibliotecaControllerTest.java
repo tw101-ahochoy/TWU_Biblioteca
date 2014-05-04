@@ -13,31 +13,33 @@ public class BibliotecaControllerTest {
     private PrintStream out;
     private BibliotecaController controller;
     private Menu menu;
+    private DoneState done;
 
     @Before
     public void setUp() throws Exception {
         out = mock(PrintStream.class);
         menu = mock(Menu.class);
-        controller = new BibliotecaController(out, menu);
+        done = mock(DoneState.class);
+        controller = new BibliotecaController(out, menu, done);
     }
 
     @Test
     public void shouldPrintWelcomeMessageOnStart() throws IOException {
-        when(menu.isDone()).thenReturn(true);
+        when(done.isDone()).thenReturn(true);
         controller.start();
         verify(out).println("Welcome!");
     }
 
     @Test
     public void shouldLetUserChooseOptions() throws IOException {
-        when(menu.isDone()).thenReturn(true);
+        when(done.isDone()).thenReturn(true);
         controller.start();
         verify(menu).run();
     }
 
     @Test
     public void shouldQuitWhenOptionSelected() throws IOException {
-        when(menu.isDone()).thenReturn(false).thenReturn(true);
+        when(done.isDone()).thenReturn(false).thenReturn(true);
         controller.start();
         verify(menu, times(2)).run();
     }

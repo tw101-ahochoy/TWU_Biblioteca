@@ -3,34 +3,28 @@ package com.twu.biblioteca;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.HashMap;
+
 public class Menu {
     private PrintStream printStream;
-    private Library library;
     private BufferedReader reader;
-    private boolean done = false;
     private OptionPrinter optionPrinter;
+    private HashMap<String, Command> commandMap;
 
-    public Menu(PrintStream printStream, Library library, BufferedReader reader, OptionPrinter optionPrinter) {
+    public Menu(PrintStream printStream, BufferedReader reader, OptionPrinter optionPrinter, HashMap<String, Command> commandMap) {
         this.printStream = printStream;
-        this.library = library;
         this.reader = reader;
         this.optionPrinter = optionPrinter;
+        this.commandMap = commandMap;
     }
 
     public void run() {
         optionPrinter.print();
 
         String input = readLine();
-        if (input.equals("4")){
-            done = true;
-        } else if (input.equals("3")) {
-            printStream.println("Which book would you like to return?");
-            library.returnBook(readLine());
-        } else if (input.equals("2")){
-            printStream.println("Which book would you like to check out?");
-            library.checkout(readLine());
-        } else if (input.equals("1")){
-            library.listBooks();
+
+        if( commandMap.get(input) != null ) {
+            commandMap.get(input).execute();
         } else {
             printStream.println("Select a valid option!");
         }
@@ -43,9 +37,5 @@ public class Menu {
             e.printStackTrace();
             return "";
         }
-    }
-
-    public boolean isDone() {
-        return done;
     }
 }

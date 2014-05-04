@@ -1,7 +1,8 @@
 package com.twu.biblioteca;
 
-/**
- * Created by kelin on 4/30/14.
- */
-public class Command {
+public interface Command {
+    public void execute();
+    public String displayName();
+
 }
+

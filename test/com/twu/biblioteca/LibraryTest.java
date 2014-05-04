@@ -56,4 +56,12 @@ public class LibraryTest {
         library.returnBook("Book 3");
         assertTrue(books.contains("Book 3"));
     }
+
+    @Test
+    public void shouldPrintSuccessfulCheckoutMessage() {
+        books.add("A Good Book");
+        library = new Library(books, printStream, joiner);
+        library.checkout("A Good Book");
+        verify(printStream).println("Thank you! Enjoy the book.");
+    }
 }

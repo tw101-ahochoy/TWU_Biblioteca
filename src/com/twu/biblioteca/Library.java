@@ -1,13 +1,8 @@
 package com.twu.biblioteca;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
-/**
- * Created by manderso on 4/29/14.
- */
 public class Library {
 
     private Collection<String> books;
@@ -28,6 +23,7 @@ public class Library {
     public boolean checkout(String book) {
         if (books.contains(book)) {
             books.remove(book);
+            printStream.println("Thank you! Enjoy the book.");
             return true;
         } else {
             return false;

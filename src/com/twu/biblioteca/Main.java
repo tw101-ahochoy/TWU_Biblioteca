@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class Main {
@@ -12,7 +13,7 @@ public class Main {
 
         PrintStream out = System.out;
 
-        Library library = new Library(initialBooks(), out, new StringJoiner());
+        Library library = new Library(initialBooks(), new HashSet<String>(), out, new StringJoiner());
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         OptionPrinter optionPrinter = new OptionPrinter(out);

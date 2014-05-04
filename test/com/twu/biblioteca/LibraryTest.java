@@ -19,13 +19,15 @@ public class LibraryTest {
     private Library library;
     private PrintStream printStream;
     private StringJoiner joiner;
+    private Collection<String> checkedOutBooks;
 
     @Before
     public void setUp() throws Exception {
         books = new HashSet<String>();
+        checkedOutBooks = new HashSet<String>();
         printStream = mock(PrintStream.class);
         joiner = mock(StringJoiner.class);
-        library = new Library(books, printStream, joiner);
+        library = new Library(books, checkedOutBooks, printStream, joiner);
     }
 
 
@@ -53,6 +55,8 @@ public class LibraryTest {
 
     @Test
     public void shouldReturnBook(){
+        checkedOutBooks.add("Book 3");
+        library = new Library(books, checkedOutBooks, printStream, joiner);
         library.returnBook("Book 3");
         assertTrue(books.contains("Book 3"));
     }
@@ -60,7 +64,7 @@ public class LibraryTest {
     @Test
     public void shouldPrintSuccessfulCheckoutMessage() {
         books.add("A Good Book");
-        library = new Library(books, printStream, joiner);
+        library = new Library(books, checkedOutBooks, printStream, joiner);
         library.checkout("A Good Book");
         verify(printStream).println("Thank you! Enjoy the book.");
     }
@@ -70,4 +74,37 @@ public class LibraryTest {
         library.checkout("I'm not in the library");
         verify(printStream).println("That book is not available.");
     }
+
+    @Test
+    public void shouldPrintSuccessfulReturnMessage() {
+        checkedOutBooks.add("Boo!");
+        library = new Library(books, checkedOutBooks, printStream, joiner);
+        library.returnBook("Boo!");
+        verify(printStream).println("Thank you for returning the book.");
+    }
+
+    @Test
+    public void shouldReturnTrueIfBookIsCheckedOut(){
+        books.add("boo2");
+        library = new Library(books, checkedOutBooks, printStream, joiner);
+        library.checkout("boo2");
+        assertTrue(library.isCheckedOut("boo2"));
+    }
+
+    @Test
+    public void shouldRemoveBookFromCheckoutListWhenReturned() {
+        checkedOutBooks.add("A Book About Books");
+        library = new Library(books, checkedOutBooks, printStream, joiner);
+        library.returnBook("A Book About Books");
+        assertFalse(library.isCheckedOut("A Book About Books"));
+    }
+
+    @Test
+    public void shouldPrintUnsuccessfulReturnMessage() {
+        library.returnBook("No Way!");
+        verify(printStream).println("That is not a valid book to return.");
+    }
+
+
 }
+

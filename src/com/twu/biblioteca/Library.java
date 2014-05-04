@@ -5,12 +5,13 @@ import java.util.Collection;
 
 public class Library {
 
-    private Collection<String> books;
+    private Collection<String> books, checkedOutBooks;
     private PrintStream printStream;
     private StringJoiner joiner;
 
-    public Library(Collection<String> initialBooks, PrintStream printStream, StringJoiner joiner) {
+    public Library(Collection<String> initialBooks, Collection<String> checkedOutBooks, PrintStream printStream, StringJoiner joiner) {
         this.books = initialBooks;
+        this.checkedOutBooks = checkedOutBooks;
         this.printStream = printStream;
         this.joiner = joiner;
     }
@@ -23,6 +24,7 @@ public class Library {
     public boolean checkout(String book) {
         if (books.contains(book)) {
             books.remove(book);
+            checkedOutBooks.add(book);
             printStream.println("Thank you! Enjoy the book.");
             return true;
         } else {
@@ -32,6 +34,16 @@ public class Library {
     }
 
     public void returnBook(String book) {
-        books.add(book);
+        if (checkedOutBooks.contains(book)){
+            checkedOutBooks.remove(book);
+            books.add(book);
+            printStream.println("Thank you for returning the book.");
+        } else {
+            printStream.println("That is not a valid book to return.");
+        }
+    }
+
+    public boolean isCheckedOut(String book) {
+        return checkedOutBooks.contains(book);
     }
 }

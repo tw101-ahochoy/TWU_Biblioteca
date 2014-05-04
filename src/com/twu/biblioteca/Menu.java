@@ -23,6 +23,9 @@ public class Menu {
         String input = readLine();
         if (input.equals("4")){
             done = true;
+        } else if (input.equals("3")) {
+            printStream.println("Which book would you like to return?");
+            library.returnBook(readLine());
         } else if (input.equals("2")){
             printStream.println("Which book would you like to check out?");
             library.checkout(readLine());

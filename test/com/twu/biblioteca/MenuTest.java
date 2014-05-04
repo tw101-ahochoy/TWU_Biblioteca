@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InOrder;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -67,6 +68,29 @@ public class MenuTest {
         when(reader.readLine()).thenReturn("2");
         menu.run();
         verify(printStream).println("Which book would you like to check out?");
+    }
+
+    @Test
+    public void shouldPromptUserToEnterABookNameWhenReturning() throws IOException {
+        when(reader.readLine()).thenReturn("3");
+        menu.run();
+        verify(printStream).println("Which book would you like to return?");
+    }
+
+    @Test
+    public void shouldAcceptUserInputWhenReturning() throws IOException {
+        when(reader.readLine()).thenReturn("3");
+        InOrder inOrder = inOrder(printStream, reader);
+        menu.run();
+        inOrder.verify(printStream).println("Which book would you like to return?");
+        inOrder.verify(reader).readLine();
+    }
+
+    @Test
+    public void shouldAttemptToReturnBookWhenUserRequest() throws IOException {
+        when(reader.readLine()).thenReturn("3").thenReturn("book");
+        menu.run();
+        verify(library).returnBook("book");
     }
 
 }

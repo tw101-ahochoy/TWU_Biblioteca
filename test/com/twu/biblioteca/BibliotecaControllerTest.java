@@ -31,7 +31,7 @@ public class BibliotecaControllerTest {
     }
 
     @Test
-    public void shouldLetUserChooseOptions() throws IOException {
+    public void shouldRunMenuWhenControllerStarts() throws IOException {
         when(done.isDone()).thenReturn(true);
         controller.start();
         verify(menu).run();

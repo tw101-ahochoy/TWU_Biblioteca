@@ -1,4 +1,6 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.commands;
+
+import com.twu.biblioteca.Library;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,10 +26,5 @@ public class CheckoutCommand implements Command {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public String displayName() {
-        return "Checkout";
     }
 }

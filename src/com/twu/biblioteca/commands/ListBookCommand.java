@@ -1,4 +1,6 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.commands;
+
+import com.twu.biblioteca.Library;
 
 public class ListBookCommand implements Command {
 
@@ -13,8 +15,4 @@ public class ListBookCommand implements Command {
         library.listBooks();
     }
 
-    @Override
-    public String displayName() {
-        return "List Books";
-    }
 }

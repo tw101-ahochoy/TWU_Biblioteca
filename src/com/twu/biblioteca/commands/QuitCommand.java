@@ -1,4 +1,6 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.commands;
+
+import com.twu.biblioteca.DoneState;
 
 public class QuitCommand implements Command {
     private DoneState done;
@@ -12,8 +14,4 @@ public class QuitCommand implements Command {
         done.toggle();
     }
 
-    @Override
-    public String displayName() {
-        return "Quit";
-    }
 }

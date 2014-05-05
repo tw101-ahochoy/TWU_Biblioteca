@@ -22,13 +22,13 @@ public class Main {
         controller.start();
     }
 
-    private static Map<String, Command> commands(BufferedReader reader, PrintStream out, DoneState done, Library library) {
-        Map<String,Command> commandMap = new HashMap<String, Command>();
-        commandMap.put("1", new ListBookCommand(library));
-        commandMap.put("2", new CheckoutCommand(out, library, reader));
-        commandMap.put("3", new ReturnCommand(out, reader, library));
-        commandMap.put("4", new QuitCommand(done));
-        return commandMap;
+    private static List <Command> commands(BufferedReader reader, PrintStream out, DoneState done, Library library) {
+        List<Command> commands = new ArrayList<Command>();
+        commands.add( new ListBookCommand(library));
+        commands.add( new CheckoutCommand(out, library, reader));
+        commands.add( new ReturnCommand(out, reader, library));
+        commands.add( new QuitCommand(done));
+        return commands;
     }
 
     private static List<String> initialBooks() {

@@ -4,43 +4,60 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.anyCollection;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class LibraryTest {
 
-    private Collection<String> books;
+    private Collection<String> bookTitles;
+    private Collection<Book> books;
     private Library library;
     private PrintStream printStream;
     private StringJoiner joiner;
     private Collection<String> checkedOutBooks;
+    private Book book;
+    public static final String BOOK_INFO = "Book Info";
+    private Collection<Movie> movieList;
+    private MovieStringConverter movieConverter;
 
     @Before
     public void setUp() throws Exception {
-        books = new HashSet<String>();
+        bookTitles = new HashSet<String>();
+        books = new HashSet<Book>();
+        movieConverter = mock(MovieStringConverter.class);
         checkedOutBooks = new HashSet<String>();
         printStream = mock(PrintStream.class);
         joiner = mock(StringJoiner.class);
-        library = new Library(books, checkedOutBooks, printStream, joiner);
+        movieList = new ArrayList<Movie>();
+        library = new Library(bookTitles, books, checkedOutBooks, printStream, joiner, movieList, movieConverter);
+        book = mock(Book.class);
+
     }
 
 
     @Test
     public void shouldJoinBookList() {
+        when(book.information()).thenReturn(BOOK_INFO);
+        books.add(book);
         library.listBooks();
-        verify(joiner).join(books);
+        Collection<String> expectedStrings = new ArrayList<String>();
+        expectedStrings.add(BOOK_INFO);
+        verify(joiner).join(expectedStrings);
     }
 
     @Test
     public void shouldPrintJoinedBooks() {
         String joinedBooks = "aaa";
-        when(joiner.join(books)).thenReturn(joinedBooks);
+        when(joiner.join(anyCollection())).thenReturn(joinedBooks);
         library.listBooks();
         verify(printStream).println(joinedBooks);
     }
@@ -48,23 +65,21 @@ public class LibraryTest {
     @Test
     public void shouldNotPrintCheckedOutBook() {
         String book1 = "aaa";
-        books.add(book1);
+        bookTitles.add(book1);
         library.checkout(book1);
-        assertThat(books, not(hasItem(book1)));
+        assertThat(bookTitles, not(hasItem(book1)));
     }
 
     @Test
     public void shouldReturnBook(){
         checkedOutBooks.add("Book 3");
-        library = new Library(books, checkedOutBooks, printStream, joiner);
         library.returnBook("Book 3");
-        assertTrue(books.contains("Book 3"));
+        assertTrue(bookTitles.contains("Book 3"));
     }
 
     @Test
     public void shouldPrintSuccessfulCheckoutMessage() {
-        books.add("A Good Book");
-        library = new Library(books, checkedOutBooks, printStream, joiner);
+        bookTitles.add("A Good Book");
         library.checkout("A Good Book");
         verify(printStream).println("Thank you! Enjoy the book.");
     }
@@ -78,15 +93,13 @@ public class LibraryTest {
     @Test
     public void shouldPrintSuccessfulReturnMessage() {
         checkedOutBooks.add("Boo!");
-        library = new Library(books, checkedOutBooks, printStream, joiner);
         library.returnBook("Boo!");
         verify(printStream).println("Thank you for returning the book.");
     }
 
     @Test
     public void shouldReturnTrueIfBookIsCheckedOut(){
-        books.add("boo2");
-        library = new Library(books, checkedOutBooks, printStream, joiner);
+        bookTitles.add("boo2");
         library.checkout("boo2");
         assertTrue(library.isCheckedOut("boo2"));
     }
@@ -94,7 +107,6 @@ public class LibraryTest {
     @Test
     public void shouldRemoveBookFromCheckoutListWhenReturned() {
         checkedOutBooks.add("A Book About Books");
-        library = new Library(books, checkedOutBooks, printStream, joiner);
         library.returnBook("A Book About Books");
         assertFalse(library.isCheckedOut("A Book About Books"));
     }
@@ -104,6 +116,23 @@ public class LibraryTest {
         library.returnBook("No Way!");
         verify(printStream).println("That is not a valid book to return.");
     }
+
+    @Test
+    public void shouldConvertMovieListToStringList() {
+        library.listMovies();
+        verify(movieConverter).invoke(movieList);
+    }
+
+    @Test
+    public void shouldJoinMovieStringList(){
+        List<String> expectedList = new ArrayList<String>();
+        expectedList.add("Bill's not a jerk!");
+        when(movieConverter.invoke(movieList)).thenReturn(expectedList);
+        library.listMovies();
+        verify(joiner).join(expectedList);
+    }
+
+
 
 
 }

@@ -27,4 +27,9 @@ public class ReturnCommand implements Command {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public String name() {
+        return "Return Book";
+    }
 }

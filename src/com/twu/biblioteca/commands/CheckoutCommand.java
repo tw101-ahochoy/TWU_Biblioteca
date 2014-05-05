@@ -27,4 +27,9 @@ public class CheckoutCommand implements Command {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public String name() {
+        return "Checkout Book";
+    }
 }

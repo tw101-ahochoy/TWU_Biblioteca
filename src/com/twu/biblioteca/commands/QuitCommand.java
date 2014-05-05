@@ -14,4 +14,9 @@ public class QuitCommand implements Command {
         done.toggle();
     }
 
+    @Override
+    public String name() {
+        return "Quit";
+    }
+
 }

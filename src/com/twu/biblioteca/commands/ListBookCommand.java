@@ -15,4 +15,9 @@ public class ListBookCommand implements Command {
         library.listBooks();
     }
 
+    @Override
+    public String name() {
+        return "List Books";
+    }
+
 }

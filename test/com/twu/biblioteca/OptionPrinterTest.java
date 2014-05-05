@@ -1,23 +1,44 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.commands.Command;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
 public class OptionPrinterTest {
 
-    private PrintStream printStream = mock(PrintStream.class);
-    private OptionPrinter optionPrinter = new OptionPrinter(printStream);
+    private PrintStream printStream;
+    private OptionPrinter optionPrinter;
+    private List<Command> commands;
+    private Command command;
+
+    @Before
+    public void setUp() throws Exception {
+        printStream = mock(PrintStream.class);
+        commands = new ArrayList<Command>();
+        optionPrinter = new OptionPrinter(printStream, commands);
+        command = mock(Command.class);
+        when(command.name()).thenReturn("CommandName");
+        commands.add(command);
+    }
 
     @Test
-    public void shouldPrintOptions() {
+    public void shouldPrintOneOptions() {
         optionPrinter.print();
-        verify(printStream).println("1) List books");
-        verify(printStream).println("2) Check out book");
-        verify(printStream).println("3) Return book");
-        verify(printStream).println("4) Quit");
+        verify(printStream).println("1) CommandName");
+    }
+
+    @Test
+    public void shouldPrintThreeOptions(){
+        commands.add(command);
+        commands.add(command);
+        optionPrinter.print();
+        verify(printStream).println("3) CommandName");
     }
 
 }

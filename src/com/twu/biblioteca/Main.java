@@ -13,10 +13,11 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         PrintStream out = System.out;
         DoneState done = new DoneState(false);
-        OptionPrinter optionPrinter = new OptionPrinter(out);
         Library library = new Library(initialBooks(), new HashSet<String>(), out, new StringJoiner());
 
-        Menu menu = new Menu(out, reader, optionPrinter, commands(reader, out, done, library));
+        List<Command> commands = commands(reader, out, done, library);
+        OptionPrinter optionPrinter = new OptionPrinter(out, commands);
+        Menu menu = new Menu(out, reader, optionPrinter, commands);
         BibliotecaController controller = new BibliotecaController(out, menu, done);
 
         controller.start();
@@ -26,8 +27,8 @@ public class Main {
         List<Command> commands = new ArrayList<Command>();
         commands.add( new ListBookCommand(library));
         commands.add( new CheckoutCommand(out, library, reader));
-        commands.add( new ReturnCommand(out, reader, library));
-        commands.add( new QuitCommand(done));
+        commands.add(new ReturnCommand(out, reader, library));
+        commands.add(new QuitCommand(done));
         return commands;
     }
 
